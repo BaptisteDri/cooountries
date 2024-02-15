@@ -62,6 +62,6 @@ export const GameController = ({ goodAnswer, launchGame }: Props) => {
       ))}
     </div>
   ) : (
-    <Button onClick={launchGame}>Play</Button>
+    <Button onClick={launchGame}>Guess the country!</Button>
   );
 };
