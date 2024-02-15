@@ -34,6 +34,7 @@ export const Globe = () => {
     let width = 0;
     let currentPhi = 0;
     let currentTheta = 0;
+    let phi = 0;
 
     const doublePi = Math.PI * 2;
 
@@ -67,6 +68,7 @@ export const Globe = () => {
         state.phi = currentPhi;
         state.theta = currentTheta;
         const [focusPhi, focusTheta] = focusRef.current;
+        const [latitude, longitude] = locationRef.current;
         const distPositive = (focusPhi - currentPhi + doublePi) % doublePi;
         const distNegative = (currentPhi - focusPhi + doublePi) % doublePi;
 
@@ -81,10 +83,15 @@ export const Globe = () => {
 
         state.markers = [
           {
-            location: locationRef.current,
+            location: [latitude, longitude],
             size: 0.1,
           },
         ];
+
+        if (!latitude && !longitude) {
+          phi += 0.001;
+          state.phi = phi;
+        }
       },
     });
 
