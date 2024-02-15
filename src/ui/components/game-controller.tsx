@@ -41,26 +41,24 @@ export const GameController = ({ goodAnswer, launchGame }: Props) => {
   }, [answerStatus, launchGame]);
 
   return (
-    <section className="font-code  flex justify-center w-fit mx-auto py-8 px-16 rounded-sm rounded-br-2xl">
+    <section className="font-code flex justify-center w-full md:w-fit mx-auto rounded-sm rounded-br-2xl">
       {answers ? (
-        <div className="w-fit grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-4">
           {answers.map((country, index) => (
             <Button
               key={index}
-              intent={answeredCountry === country ? answerStatus : "default"}
+              intent={answeredCountry === country ? answerStatus : "primary"}
               onClick={() => {
                 setAnsweredCountry(country);
                 setAnswerStatus(country === goodAnswer ? "success" : "error");
               }}
             >
-              <span className="line-clamp-3">{country.name}</span>
+              {country.name}
             </Button>
           ))}
         </div>
       ) : (
-        <Button intent={"accent"} onClick={launchGame}>
-          play
-        </Button>
+        <Button onClick={launchGame}>play</Button>
       )}
     </section>
   );

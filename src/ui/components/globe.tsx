@@ -54,12 +54,12 @@ export const Globe = () => {
       mapSamples: 80000,
       mapBrightness: 1,
       baseColor: [1, 1, 1],
-      markerColor: [251 / 255, 200 / 255, 21 / 255],
+      markerColor: [255 / 255, 255 / 255, 255 / 255],
       glowColor: [1.2, 1.2, 1.2],
       markers: [
         {
           location: [0, 0],
-          size: 0.05,
+          size: 0.1,
         },
       ],
       opacity: 0.9,
@@ -82,7 +82,7 @@ export const Globe = () => {
         state.markers = [
           {
             location: locationRef.current,
-            size: 0.05,
+            size: 0.1,
           },
         ];
       },
@@ -107,12 +107,12 @@ export const Globe = () => {
               height: "100%",
               contain: "layout paint size",
               opacity: 0,
-              transition: "opacity 1s ease",
+              transition: "opacity 500ms ease",
             }}
           />
         </div>
       </div>
-      <div className="h-72 flex items-end justify-center">
+      <div className="h-72 flex justify-center animate-fade">
         <div className="px-6 pb-6">
           <GameController
             goodAnswer={randomCountry}
