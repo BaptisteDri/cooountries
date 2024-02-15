@@ -33,21 +33,27 @@ export const GameController = ({ goodAnswer, launchGame }: Props) => {
 
   useEffect(() => {
     if (!answerStatus) return;
+
     setTimeout(() => {
       launchGame();
       setAnswerStatus(undefined);
-      setAnswers(undefined);
     }, 1500);
   }, [answerStatus, launchGame]);
 
   return (
-    <section className="font-code flex justify-center w-full md:w-fit mx-auto rounded-sm rounded-br-2xl">
+    <section className="font-code">
       {answers ? (
         <div className="grid grid-cols-2 gap-4">
           {answers.map((country, index) => (
             <Button
               key={index}
-              intent={answeredCountry === country ? answerStatus : "primary"}
+              intent={
+                answerStatus && country === goodAnswer
+                  ? "success"
+                  : answeredCountry === country
+                  ? answerStatus
+                  : "primary"
+              }
               onClick={() => {
                 setAnsweredCountry(country);
                 setAnswerStatus(country === goodAnswer ? "success" : "error");

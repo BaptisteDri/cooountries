@@ -9,7 +9,7 @@ const button = cva(
     "duration-300",
     "hover:brightness-150 hover:border-t-4 hover:border-b",
     "active:opacity-75",
-    "w-80 max-w-full",
+    "w-full md:w-80 max-w-full",
     "h-20",
     "line-clamp-2",
     "px-4",

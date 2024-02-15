@@ -112,13 +112,11 @@ export const Globe = () => {
           />
         </div>
       </div>
-      <div className="h-72 flex justify-center animate-fade">
-        <div className="px-6 pb-6">
-          <GameController
-            goodAnswer={randomCountry}
-            launchGame={getRandomCountry}
-          />
-        </div>
+      <div className="h-72 flex justify-center items-center animate-fade px-6 pb-6">
+        <GameController
+          goodAnswer={randomCountry}
+          launchGame={getRandomCountry}
+        />
       </div>
     </div>
   );
