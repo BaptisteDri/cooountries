@@ -6,6 +6,7 @@ import { locationToAngles } from "@/ui/utils/location-to-angles";
 import { Country } from "@/modules/countries/domain/country";
 import { actions } from "@/config/actions";
 import { dependencies } from "@/config/dependencies";
+import { GameController } from "@/ui/components/game-controller";
 
 export const Globe = () => {
   const canvasRef = useRef<any>();
@@ -96,7 +97,7 @@ export const Globe = () => {
   }, []);
 
   return (
-    <div className="w-full max-w-[80dvh] aspect-square relative m-auto">
+    <div className="w-full max-w-[70dvh] aspect-square relative m-auto">
       <canvas
         ref={canvasRef}
         style={{
@@ -107,18 +108,11 @@ export const Globe = () => {
           transition: "opacity 1s ease",
         }}
       />
-      <div className="space-y-4 flex flex-col justify-center">
-        <div className="text-center">
-          {randomCountry?.name || "Select country"}
-        </div>
-        <button
-          onClick={() => {
-            getRandomCountry();
-          }}
-        >
-          Go to random country
-        </button>
-      </div>
+
+      <GameController
+        goodAnswer={randomCountry}
+        launchGame={getRandomCountry}
+      />
     </div>
   );
 };
