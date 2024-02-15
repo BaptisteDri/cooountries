@@ -97,22 +97,29 @@ export const Globe = () => {
   }, []);
 
   return (
-    <div className="w-full max-w-[70dvh] aspect-square relative m-auto">
-      <canvas
-        ref={canvasRef}
-        style={{
-          width: "100%",
-          height: "100%",
-          contain: "layout paint size",
-          opacity: 0,
-          transition: "opacity 1s ease",
-        }}
-      />
-
-      <GameController
-        goodAnswer={randomCountry}
-        launchGame={getRandomCountry}
-      />
+    <div>
+      <div className="h-[calc(100dvh-18rem)] grid place-items-center">
+        <div className="w-full max-w-[calc(100dvh-312px)] aspect-square relative m-auto">
+          <canvas
+            ref={canvasRef}
+            style={{
+              width: "100%",
+              height: "100%",
+              contain: "layout paint size",
+              opacity: 0,
+              transition: "opacity 1s ease",
+            }}
+          />
+        </div>
+      </div>
+      <div className="h-72 flex items-end justify-center">
+        <div className="px-6 pb-6">
+          <GameController
+            goodAnswer={randomCountry}
+            launchGame={getRandomCountry}
+          />
+        </div>
+      </div>
     </div>
   );
 };

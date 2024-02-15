@@ -8,6 +8,21 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      colors: {
+        "star-dust": {
+          "50": "#f7f7f7",
+          "100": "#ededec",
+          "200": "#dfdfde",
+          "300": "#c9c7c7",
+          "400": "#aeacac",
+          "500": "#a2a09f",
+          "600": "#8a8886",
+          "700": "#7c7a79",
+          "800": "#686665",
+          "900": "#555353",
+          "950": "#363635",
+        },
+      },
       boxShadow: {
         default:
           "rgba(0, 0, 0, 0.377) 10px 10px 8px, #ffffff 1.5px 1.5px 2px 0px inset, #c7c3c0 -3.2px -3.2px 8px 0px inset;",

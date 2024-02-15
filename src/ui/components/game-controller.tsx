@@ -1,7 +1,10 @@
 // @TODO: create a new action to get false answers
 
+import { actions } from "@/config/actions";
+import { dependencies } from "@/config/dependencies";
 import { Country } from "@/modules/countries/domain/country";
 import { Button } from "@/ui/components/button";
+import { use, useEffect, useState } from "react";
 
 type Props = {
   goodAnswer?: Country;
@@ -9,12 +12,56 @@ type Props = {
 };
 
 export const GameController = ({ goodAnswer, launchGame }: Props) => {
+  const [answers, setAnswers] = useState<Country[]>();
+  const [answeredCountry, setAnsweredCountry] = useState<Country>();
+  const [answerStatus, setAnswerStatus] = useState<
+    "success" | "error" | undefined
+  >();
+
+  const getFalseAnswers = async (goodAnswer: Country) => {
+    const falseAnswers = await actions.countries.getFalseAnswers(dependencies)(
+      goodAnswer
+    );
+    setAnswers([...falseAnswers, goodAnswer].sort(() => 0.5 - Math.random()));
+  };
+
+  useEffect(() => {
+    if (!goodAnswer) return;
+
+    getFalseAnswers(goodAnswer);
+  }, [goodAnswer]);
+
+  useEffect(() => {
+    if (!answerStatus) return;
+    setTimeout(() => {
+      launchGame();
+      setAnswerStatus(undefined);
+      setAnswers(undefined);
+    }, 1500);
+  }, [answerStatus, launchGame]);
+
   return (
-    <section className="font-code bg-[#a2a09f] w-fit mx-auto p-4 rounded rounded-br-2xl grid grid-cols-4 gap-4">
-      <Button>france</Button>
-      <Button intent={"error"}>united states of america</Button>
-      <Button intent={"success"}>success</Button>
-      <Button intent={"accent"}>play</Button>
+    <section className="font-code  flex justify-center w-fit mx-auto py-8 px-16 rounded-sm rounded-br-2xl">
+      {answers ? (
+        <div className="w-fit grid grid-cols-2 gap-4">
+          {answers.map((country, index) => (
+            <Button
+              key={index}
+              intent={answeredCountry === country ? answerStatus : "default"}
+              onClick={() => {
+                setAnsweredCountry(country);
+                setAnswerStatus(country === goodAnswer ? "success" : "error");
+              }}
+            >
+              <span className="line-clamp-3">{country.name}</span>
+            </Button>
+          ))}
+        </div>
+      ) : (
+        <Button intent={"accent"} onClick={launchGame}>
+          play
+        </Button>
+      )}
     </section>
   );
 };

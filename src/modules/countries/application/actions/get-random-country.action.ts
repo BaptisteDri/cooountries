@@ -1,5 +1,4 @@
 import { CountriesRepository } from "@/modules/countries/application/countries.repository";
-import { Country } from "@/modules/countries/domain/country";
 
 export const getRandomCountry =
   ({ countriesRepository }: { countriesRepository: CountriesRepository }) =>
