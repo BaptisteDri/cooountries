@@ -40,32 +40,28 @@ export const GameController = ({ goodAnswer, launchGame }: Props) => {
     }, 1500);
   }, [answerStatus, launchGame]);
 
-  return (
-    <section className="font-code">
-      {answers ? (
-        <div className="grid grid-cols-2 gap-4">
-          {answers.map((country, index) => (
-            <Button
-              key={index}
-              intent={
-                answerStatus && country === goodAnswer
-                  ? "success"
-                  : answeredCountry === country
-                  ? answerStatus
-                  : "primary"
-              }
-              onClick={() => {
-                setAnsweredCountry(country);
-                setAnswerStatus(country === goodAnswer ? "success" : "error");
-              }}
-            >
-              {country.name}
-            </Button>
-          ))}
-        </div>
-      ) : (
-        <Button onClick={launchGame}>play</Button>
-      )}
-    </section>
+  return answers ? (
+    <div className="grid grid-cols-2 gap-4">
+      {answers.map((country, index) => (
+        <Button
+          key={index}
+          intent={
+            answerStatus && country === goodAnswer
+              ? "success"
+              : answeredCountry === country
+              ? answerStatus
+              : "primary"
+          }
+          onClick={() => {
+            setAnsweredCountry(country);
+            setAnswerStatus(country === goodAnswer ? "success" : "error");
+          }}
+        >
+          {country.name}
+        </Button>
+      ))}
+    </div>
+  ) : (
+    <Button onClick={launchGame}>Play</Button>
   );
 };
