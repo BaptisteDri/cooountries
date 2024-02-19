@@ -14,7 +14,6 @@ const button = cva(
     "h-20",
     "line-clamp-2",
     "px-4",
-    "pointer-events-none",
   ],
   {
     variants: {

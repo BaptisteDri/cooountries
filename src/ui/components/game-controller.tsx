@@ -79,7 +79,7 @@ export const GameController = ({ goodAnswer, launchGame }: Props) => {
                   setAnswersAmounts(country === goodAnswer);
                 }}
               >
-                {country.name}
+                <span className="pointer-events-none">{country.name}</span>
               </Button>
             ))}
           </div>
