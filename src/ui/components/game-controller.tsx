@@ -4,7 +4,8 @@ import { actions } from "@/config/actions";
 import { dependencies } from "@/config/dependencies";
 import { Country } from "@/modules/countries/domain/country";
 import { Button } from "@/ui/components/button";
-import { use, useEffect, useState } from "react";
+import { SuccessRate } from "@/ui/components/success-rate";
+import { useEffect, useState } from "react";
 
 type Props = {
   goodAnswer?: Country;
@@ -17,6 +18,9 @@ export const GameController = ({ goodAnswer, launchGame }: Props) => {
   const [answerStatus, setAnswerStatus] = useState<
     "success" | "error" | undefined
   >();
+  const [goodAnswersAmount, setGoodAnswersAmount] = useState<number>(0);
+  const [totalAnswers, setTotalAnswers] = useState<number>(0);
+  const [successRate, setSuccessRate] = useState<number>(0);
 
   const getFalseAnswers = async (goodAnswer: Country) => {
     const falseAnswers = await actions.countries.getFalseAnswers(dependencies)(
@@ -31,6 +35,14 @@ export const GameController = ({ goodAnswer, launchGame }: Props) => {
     getFalseAnswers(goodAnswer);
   }, [goodAnswer]);
 
+  const setAnswersAmounts = (success: boolean) => {
+    if (success) {
+      setGoodAnswersAmount((prev) => prev + 1);
+    }
+
+    setTotalAnswers((totalAnswers) => totalAnswers + 1);
+  };
+
   useEffect(() => {
     if (!answerStatus) return;
 
@@ -40,28 +52,42 @@ export const GameController = ({ goodAnswer, launchGame }: Props) => {
     }, 1500);
   }, [answerStatus, launchGame]);
 
-  return answers ? (
-    <div className="grid grid-cols-2 gap-4">
-      {answers.map((country, index) => (
-        <Button
-          key={index}
-          intent={
-            answerStatus && country === goodAnswer
-              ? "success"
-              : answeredCountry === country
-              ? answerStatus
-              : "primary"
-          }
-          onClick={() => {
-            setAnsweredCountry(country);
-            setAnswerStatus(country === goodAnswer ? "success" : "error");
-          }}
-        >
-          {country.name}
-        </Button>
-      ))}
+  useEffect(() => {
+    if (!goodAnswersAmount || !totalAnswers) return;
+
+    setSuccessRate(Math.round((goodAnswersAmount / totalAnswers) * 100));
+  }, [goodAnswersAmount, totalAnswers]);
+
+  return (
+    <div className="space-y-3">
+      {answers ? (
+        <>
+          <div className="grid grid-cols-2 gap-4">
+            {answers.map((country, index) => (
+              <Button
+                key={index}
+                intent={
+                  answerStatus && country === goodAnswer
+                    ? "success"
+                    : answeredCountry === country
+                    ? answerStatus
+                    : "primary"
+                }
+                onClick={() => {
+                  setAnsweredCountry(country);
+                  setAnswerStatus(country === goodAnswer ? "success" : "error");
+                  setAnswersAmounts(country === goodAnswer);
+                }}
+              >
+                {country.name}
+              </Button>
+            ))}
+          </div>
+          <SuccessRate successRate={successRate} totalAnswers={totalAnswers} />
+        </>
+      ) : (
+        <Button onClick={launchGame}>Guess the country!</Button>
+      )}
     </div>
-  ) : (
-    <Button onClick={launchGame}>Guess the country!</Button>
   );
 };
