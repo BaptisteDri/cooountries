@@ -12,7 +12,7 @@ export const SuccessRate = ({ successRate, totalAnswers }: Props) => {
         totalAnswers === 0 ? "opacity-0" : "opacity-100"
       )}
     >
-      {successRate}% de bonnes réponses{" "}
+      {successRate}% correct answers{" "}
       {successRate >= 80 ? "🥳" : successRate >= 50 ? "🧐" : "🥶"}
     </div>
   );
