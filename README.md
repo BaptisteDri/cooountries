@@ -1,7 +1,7 @@
 
 Geographical quiz, implementing hexagonal architecture and dependency inversions with **React** & **Next.js**.
 
-👉 cooountries.vercel.app
+👉 [cooountries.vercel.app](https://cooountries.vercel.app/)
 
 **s/o** to https://cobe-playground.vercel.app/ for the globe.
 
